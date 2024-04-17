@@ -1,12 +1,14 @@
 ---
-created_at: 2022-11-21
+title: 322. coin change
 type: leetcode
-aliases: []
+aliases: 
 difficulty: 🟡
 link: https://leetcode.com/problems/coin-change/
+date: 2022-11-22
+updated: 2024-04-17
+tags:
+  - dp
 ---
-
-# 322. Coin Change
 
 You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.
 
@@ -14,25 +16,11 @@ Return _the fewest number of coins that you need to make up that amount_. If th
 
 You may assume that you have an infinite number of each kind of coin.
 
-```python
-class Solution:
-    def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [0]*(amount+1)
-        
-        for i in range(1, amount+1):
-            m = float("inf")
-            for coin in coins:
-                if i-coin >= 0 and dp[i-coin] >= 0:
-                    m = min(m, dp[i-coin]+1)
-            dp[i] = m
+## solution
 
-        return dp[-1] if dp[-1] != float("inf") else -1
-```
+Use dynamic programming to keep track of the minimum number of coins required to make each `amount` from 0 to `amount`.
 
-- we use [[dynamic-programming]] to keep track of the minimum number of coins required to make each `amount` from 0 to `amount`.
-- let $d_i$ be the value of the `dp` array at `i`.
-- let $C$ be the set of coin values, and $c_i$ be the value of the coin at index $i$ in the `coins` array.
-- then, our recursive relation is as follows:
+Let $d_i$ be the value of the `dp` array at `i`. Let $C$ be the set of coin values, and $c_i$ be the value of the coin at index $i$ in the `coins` array. Then, our recursive relation is as follows:
 
 $$
 M_i=
@@ -42,4 +30,16 @@ M_i=
 \end{cases}
 $$
 
-Categories:: [[array]], [[dynamic-programming]]
+```python
+def coinChange(self, coins: List[int], amount: int) -> int:
+	dp = [0]*(amount+1)
+	
+	for i in range(1, amount+1):
+		m = float("inf")
+		for coin in coins:
+			if i-coin >= 0 and dp[i-coin] >= 0:
+				m = min(m, dp[i-coin]+1)
+			dp[i] = m
+	
+	return dp[-1] if dp[-1] != float("inf") else -1
+```

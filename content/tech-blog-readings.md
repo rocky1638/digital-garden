@@ -8,12 +8,13 @@ children:
 supports: 
 enemies:
 date: 2022-12-30
-updated: 2024-03-23
+updated: 2024-03-25
 ---
 
 ## 2024
 
 - [[dynamo-white-paper]]
+- [[google-file-system-white-paper]]
 
 ## to-read
 
@@ -32,7 +33,6 @@ updated: 2024-03-23
 - https://www.uber.com/blog/money-scale-strong-data/
 - https://medium.com/airbnb-engineering/scaling-airbnbs-payment-platform-43ebfc99b324
 - https://highscalability.com/
-- https://s3.amazonaws.com/systemsandpapers/papers/gfs.pdf
 - https://s3.amazonaws.com/systemsandpapers/papers/Kafka.pdf
 - https://s3.amazonaws.com/systemsandpapers/papers/wormhole.pdf
 - https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45409.pdf

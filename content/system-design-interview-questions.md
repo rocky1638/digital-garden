@@ -29,12 +29,11 @@ Sourced from [here](https://github.com/ashishps1/awesome-system-design-resources
 - [[design-distributed-cache]]
 - [[design-distributed-job-scheduler]]
 - [[design-authentication-system]]
-- [Design Unified Payments Interface (UPI)](https://www.youtube.com/watch?v=QpLy0_c_RXk)
-- [Design Text Storage Service like Pastebin](https://www.youtube.com/watch?v=josjRSBqEBI)
+- [[design-pastebin]]
 
 ### medium
 
-- [Design Instagram](https://www.youtube.com/watch?v=VJpfO6KdyWE)
+- [[design-instagram]]
 - [Design Tinder](https://www.youtube.com/watch?v=tndzLznxq40)
 - [Design WhatsApp](https://www.youtube.com/watch?v=vvhC64hQZMk)
 - [Design Facebook](https://www.youtube.com/watch?v=9-hjBGxuiEs)
