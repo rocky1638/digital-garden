@@ -49,13 +49,19 @@ Then, our queries will just require us to sum up the middle values in `s`, takin
 
 Instead of maintaining one large sorted array `s` of length $m$, we can maintain three sorted arrays, called `lows`, `mids`, and `highs`. We store the lowest $k$ elements, the middle $m-2k$ elements, and highest $k$ elements respectively in these sorted lists.
 
-Then, when we call `addElement`, we remove the oldest element (falling out of the window) and add the newer element. These processes will take $O(k)$ or $O(m-2k)$ depending on where we’re adding to/removing from.
+Then, when we call `addElement`, we remove the oldest element (falling out of the window) and add the newer element. These processes will take $O(k + (m-2k))$ depending on where we’re adding to/removing from.
 
 After removing a value, we shift the values down to maintain our invariance of sorting between the three lists. We guarantee that after `_remove` is run, we have one open space in `self.highs`.
 
 Then, we run `_add`, inserting the number into the correct list, and shifting numbers right-ward if necessary.
 
 Finally, we can still run queries in $O(m-2k)$ time.
+
+
+> [!attention]- a note on the use of `SortedList`
+> Instead of using normal Python lists, we use `SortedList` here as the implementation of `SortedList` achieves amortized $O(\log n)$ runtime on insertion/deletion, as lists are represented as a list of smaller lists internally.
+>
+> This improves the runtime of `addElement` to $O(\log(k) + \log(m-2k))$. For details, visit [here](https://grantjenks.com/docs/sortedcontainers/implementation.html).
 
 ```python
 from sortedcontainers import SortedList
