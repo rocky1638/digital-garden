@@ -8,7 +8,7 @@ children:
 supports: 
 enemies:
 date: 2022-12-30
-updated: 2024-03-27
+updated: 2024-05-07
 ---
 
 ## my solution
@@ -75,8 +75,9 @@ Let’s focus on:
 
 - Consider separating out read and write service.
 - Consider adding message queue for asynchronous image upload/processing for throughput.
-- 
+- Instead of a generic graph DB, we could consider just having two databases, one for user’s followers and one for user’s following.
 
 ## references
 
 - [Design Instagram](https://www.youtube.com/watch?v=VJpfO6KdyWE)
+- https://www.youtube.com/watch?v=S2y9_XYOZsg&list=PLjTveVh7FakJOoY6GPZGWHHl4shhDT8iV&index=2

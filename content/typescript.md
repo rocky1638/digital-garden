@@ -1,12 +1,12 @@
 ---
-created_at: 2023-01-05
+title: "typescript"
 type: concept
 aliases: []
+date: 2023-01-05
+updated: 2024-05-10
 ---
 
-# Typescript
-
-## Basics.
+## basics
 
 - A wrapper around [[javascript]] to add typing and static analysis to JavaScript.
 - We can **explicitly** type a variable like so `const a: number = 6`.
@@ -33,13 +33,17 @@ const b: CustomArray<number> = [5, 3, 246, 76];
 const c: CustomArray<string> = ['allowed', 'allowed'];
 ```
 
-```dataview
-table without id file.inlinks as Backlinks
-where file.name = this.file.name
-```
+## total typescript course
 
-## Related.
+### type transformations
 
-## References.
-
-Categories::
+- `typeof` to turn a runtime object into a type.
+- `keyof` to turn the keys of an object into a union of keys.
+- Lots of utility types like `Extract`, `Pick`, `Omit`, etc.
+- `as const` lets you convert a runtime item into a type, with all the strings as string literals and not just `string`.
+- `ts-toolbelt` is a library that has extra fancy functions.
+- We can use `{}` to tell Typescript to match anything that’s not `null` or `undefined`. This is because Typescript just checks to make sure the fields in the variable `a` match the fields required for type `Type`.
+	- In Javascript, everything is technically an object, so everything that’s not `undefined` or `null` will satisfy `{}`.
+- We can define local variables using `infer`.
+	- `type MyType<T> = T extends { foo: infer TBar} ? TBar : never`
+	- https://www.totaltypescript.com/workshops/type-transformations/conditional-types-and-infer/extract-the-result-of-an-async-function/solution

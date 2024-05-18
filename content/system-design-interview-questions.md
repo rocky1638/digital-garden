@@ -34,6 +34,7 @@ Sourced from [here](https://github.com/ashishps1/awesome-system-design-resources
 ### medium
 
 - [[design-instagram]]
+- [[design-dropbox]]
 - [Design Tinder](https://www.youtube.com/watch?v=tndzLznxq40)
 - [Design WhatsApp](https://www.youtube.com/watch?v=vvhC64hQZMk)
 - [Design Facebook](https://www.youtube.com/watch?v=9-hjBGxuiEs)

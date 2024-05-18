@@ -3,7 +3,7 @@ type: moc
 aliases: []
 title: "system design moc"
 date: 2022-11-26
-updated: 2024-03-23
+updated: 2024-05-15
 ---
 
 ## book and course notes
@@ -18,6 +18,8 @@ updated: 2024-03-23
 - [[tech-blog-readings]] - A collection of tech blogs that I’ve read and highlighted/taken notes on.
 
 ## interviews
+
+![[Pasted image 20240515215150.png]]
 
 ![Steps to take during a system design interview](https://github.com/ashishps1/awesome-system-design-resources/raw/main/diagrams/interview-template.png)
 
