@@ -1,16 +1,54 @@
 ---
-created_at: 2023-01-13
 type: concept
-aliases: []
+aliases: 
+date: 2023-01-13
+updated: 2024-05-19
+tags:
+  - union-find
 ---
 
-# Union Find
+Union find is a data structure that supports two main functions:
+1. `uf.find(u)`, which outputs a unique id so that two nodes have the same id if and only if they are in the same connected component.
+2. `uf.union(u, v)`, which connects the components with id `find(u)` and `find(v)` together. If it already connected then return False, else return True.
 
-- a data structure that supports two main functions:
-	- `uf.find(u)`, which outputs a unique id so that two nodes have the same id if and only if they are in the same connected component.
-	- `uf.union(u, v)`, which connects the components with id `find(u)` and `find(v)` together. If it already connected then return False, else return True.
+## example implementation
 
-## Video notes.
+```python
+class UnionFind:
+	def __init__(self, n):
+		# initialize each node's parent as itself
+		self.parent = [i for i in range(n)]
+		# store size of each set with i'th node as parent
+		self.size = [1] * n
+	
+	"""
+	returns the parent of the set that x belongs to.
+	essentially, parent of the set is used to "key"
+	the set that it manages.
+	"""
+	def find(self, x):
+		# if x is already a child to smth else, do collapsing find
+		if x != self.parent[x]:
+			# recursively updates and caches
+			self.parent[x] = self.find(self.parent[x]) # Path compression
+		return self.parent[x]
+	
+	def union(self, u, v):
+		# find parents of both nodes
+		pu, pv = self.find(u), self.find(v)
+		if pu == pv: return False  # Return False if u and v are already union
+		
+		# the larger set becomes the main parent
+		if self.size[pu] > self.size[pv]: # Union by larger size
+			self.size[pu] += self.size[pv]
+			self.parent[pv] = pu
+		else:
+			self.size[pv] += self.size[pu]
+			self.parent[pu] = pv
+		return True
+```
+
+## video notes
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wU6udHRIkcc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -34,56 +72,7 @@ aliases: []
 	- representing parents in an array/hashmap.
 - [24:01](https://www.youtube.com/watch?v=wU6udHRIkcc&t=97s#t=1441.8985860267028) optimizing by collapsing finds.
 
-## Example implementation.
-
-```python
-class UnionFind:
-    def __init__(self, n):
-		# initialize each node's parent as itself
-        self.parent = [i for i in range(n)]
-		# store size of each set with i'th node as parent
-        self.size = [1] * n
-
-	"""
-	returns the parent of the set that x belongs to.
-	essentially, parent of the set is used to "key"
-	the set that it manages.
-	"""
-    def find(self, x):
-		# if x is already a child to smth else, do collapsing find
-        if x != self.parent[x]:
-			# recursively updates and caches
-            self.parent[x] = self.find(self.parent[x]) # Path compression
-        return self.parent[x]
-
-	"""
-	
-	"""
-    def union(self, u, v):
-		# find parents of both nodes
-        pu, pv = self.find(u), self.find(v)
-        if pu == pv: return False  # Return False if u and v are already union
-
-		# the larger set becomes the main parent
-        if self.size[pu] > self.size[pv]: # Union by larger size
-            self.size[pu] += self.size[pv]
-            self.parent[pv] = pu
-        else:
-            self.size[pv] += self.size[pu]
-            self.parent[pu] = pv
-        return True
-```
-
-```dataview
-table without id file.inlinks as Backlinks
-where file.name = this.file.name
-```
-
-## Related.
-
-## References.
+## references
 
 - https://en.wikipedia.org/wiki/Disjoint-set_data_structure
 - https://www.youtube.com/watch?v=wU6udHRIkcc
-
-Categories::
