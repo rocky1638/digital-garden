@@ -1,6 +1,6 @@
 ---
-type: <% tp.file.cursor() %>
-title: <% tp.file.cursor() %>
+type: leetcode
+title: "1042. flower planting with no adjacent"
 tags:
   - graph
 aliases: 
@@ -9,7 +9,7 @@ children:
 supports: 
 enemies: 
 date: 2022-12-30
-updated: 2024-04-22
+updated: 2024-05-19
 ---
 
 You have `n` gardens, labeled from `1` to `n`, and an array `paths` where `paths[i] = [xi, yi]` describes a bidirectional path between garden `xi` to garden `yi`. In each garden, you want to plant one of 4 types of flowers.
