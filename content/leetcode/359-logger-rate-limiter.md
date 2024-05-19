@@ -1,6 +1,6 @@
 ---
-type: <% tp.file.cursor() %>
-title: <% tp.file.cursor() %>
+type: leetcode
+title: "359. logger rate limiter"
 tags:
   - hashmap
 aliases: 
@@ -9,7 +9,7 @@ children:
 supports: 
 enemies: 
 date: 2022-12-30
-updated: 2024-05-17
+updated: 2024-05-19
 ---
 
 Design a logger system that receives a stream of messages along with their timestamps. Each **unique** message should only be printed **at most every 10 seconds** (i.e. a message printed at timestamp `t` will prevent other identical messages from being printed until timestamp `t + 10`).

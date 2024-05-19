@@ -13,7 +13,7 @@ const config: QuartzConfig = {
     locale: "en-US",
     baseUrl: "garden.rockzhou.com",
     ignorePatterns: ["private", "templates", ".obsidian", "excalibrain"],
-    defaultDateType: "created",
+    defaultDateType: "modified",
     theme: {
       cdnCaching: true,
       typography: {
