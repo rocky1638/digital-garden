@@ -53,5 +53,5 @@ class DetectSquares:
 			if abs(x1-x3) == 0 or abs(x1-x3) != abs(y1-y3):
 				continue
 			ans += cnt * self.freq[(x1, y3)] * self.freq[(x3, y1)]
-			return ans
+		return ans
 ```

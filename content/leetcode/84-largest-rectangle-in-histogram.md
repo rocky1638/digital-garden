@@ -48,7 +48,7 @@ A monotonic stack works for this, as we keep track of all the bars that are curr
 >
 > Finally, the other edge case to consider is when values remain on the stack after we reach the end of our array iteration. These rectangles have essentially accumulated all the way to the end of the bar graph, and so we just calculate their areas using the end of the array as the right bound.
 >
-> In the example above, bars with height 2 and 3 would remain on the stack after the iteration through the array.
+> In the example above, bars with height 1, 2 and 3 would remain on the stack after the iteration through the array.
 
 ```python
 def largestRectangleArea(self, heights: List[int]) -> int:

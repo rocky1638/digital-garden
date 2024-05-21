@@ -1,4 +1,9 @@
-# 716. Max Stack
+---
+type: leetcode
+title: "716. max stack"
+date: 2022-11-30
+updated: 2024-05-20
+---
 
 ```python
 from sortedcontainers import SortedList
