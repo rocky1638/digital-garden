@@ -1,6 +1,12 @@
-# 221. Maximal Square
+---
+title: 221. maximal square
+date: 2022-12-27
+updated: 2024-05-22
+tags:
+  - dp
+---
 
-## Dynamic programming matrix
+## solution
 
 ```python
 class Solution:
@@ -39,7 +45,7 @@ class Solution:
 ![[221-e1.excalidraw]]
 - in this example, we see that given the three squares of side length 2, 3, and 4 from the top-right, bottom-left, and bottom-right quadrants, we are able to create a square of side length $2+1=3$ from our top-left corner.
 
-## Slight optimization.
+### slight optimization
 
 ```python
 class Solution:
@@ -72,5 +78,3 @@ class Solution:
 ```
 
 - we only ever need to read the values from the previous row of the `dp` array, so we can optimize for space by just keeping track of the current and previous rows.
-
-[[matrix]], [[array]]

@@ -8,7 +8,7 @@ children:
 supports: 
 enemies:
 date: 2022-12-30
-updated: 2024-02-29
+updated: 2024-05-30
 ---
 
 ## leetcode tips
@@ -31,7 +31,7 @@ def search(self, nums: List[int], target: int) -> int:
 		else:
 			r = m
 
-return l
+	return l
 
 ################
 # bisect_right #
@@ -48,14 +48,14 @@ def search(self, nums: List[int], target: int) -> int:
 		else:
 			l = m+1
 
-return l
+	return l
 ```
 
 `bisect_left` will always return the index of the first of occurrence of the target if it exists, and the index where it should be inserted if it does not exist.
 
 `bisect_right` will always return the index after all of the existing targets if target exists in the array, and the index to insert if it does not exist.
 
-Notice that `bisect_right` simply flips the `r=m` and `l=m+1` assignments.
+Notice that `bisect_right` simply flips the `r=m` and `l=m+1` assignments. The difference in behavior comes from how the `nums[m] == target` case is handled.
 
 ## references
 

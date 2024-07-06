@@ -5,7 +5,7 @@ aliases:
 difficulty: 🔴
 link: https://leetcode.com/problems/trapping-rain-water/
 date: 2022-11-24
-updated: 2024-03-14
+updated: 2024-05-22
 tags:
   - two-pointer
   - array
@@ -72,3 +72,31 @@ def trap(self, height: List[int]) -> int:
 			r -= 1
 	return ans
 ```
+
+### monotonic stack
+
+We can also use a [[monotonic-stack]] here to solve this problem.
+
+If we maintain an increasing monotonic stack as we go from left to right, we can calculate the trapped water for any wall $m$ in the stack once we reach a taller wall $r$ (because $r$ will stop the water that’s trapped on the level of $m$). Furthermore, we can see that the left wall will be whatever value is below $m$ in the stack, because that’s the closest wall to the left that’s taller than $m$.
+
+```python
+def trap(self, height: List[int]) -> int:
+	stack = []
+	ans = 0
+	  
+	for r, h in enumerate(height):
+		while stack and height[stack[-1]] < h:
+			base_idx = stack[-1]
+			stack.pop()
+			if not stack: break
+			l_idx = stack[-1]
+			water_height = min(h, height[l_idx]) - height[base_idx]
+			width = r - l_idx - 1
+			ans += width * water_height
+		stack.append(r)
+	return ans
+```
+
+## references
+
+- https://leetcode.com/problems/trapping-rain-water/solutions/5010020/monotonic-stack-vs-priority-queue-using-pyplot-explain-3ms-beats-99-10

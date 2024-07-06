@@ -1,12 +1,20 @@
 ---
-created_at: 2022-12-29
 type: leetcode
+title: 50. pow(x, n)
 aliases: []
 difficulty: 🟡
 link: https://leetcode.com/problems/powx-n/
+date: 2022-12-29
+updated: 2024-05-28
 ---
 
-# 50. Pow(x, n)
+## solutions
+
+### recursion w/ memoization
+
+- i first tried to do it linearly by just multiplying $x$ repeatedly by itself, but that was too slow.
+- then, i realized that you can [[divide-and-conquer]] by splitting the exponent in half each time and using [[recursion]].
+- this still timed out, so i realized that there were many computations that were being repeated, so decided to use [[memoization]] to speed up the process significantly.
 
 ```python
 class Solution:
@@ -39,8 +47,25 @@ class Solution:
         return recurse(x, n)
 ```
 
-- i first tried to do it linearly by just multiplying $x$ repeatedly by itself, but that was too slow.
-- then, i realized that you can [[divide-and-conquer]] by splitting the exponent in half each time and using [[recursion]].
-- this still timed out, so i realized that there were many computations that were being repeated, so decided to use [[memoization]] to speed up the process significantly.
+### iterative
 
-Categories:: [[divide-and-conquer]], [[recursion]], [[memoization]]
+Instead of splitting the exponent in half, we can just set `x *= x` whenever we have an even exponent, halving the exponent and reducing our calculations by 50%.
+
+```python
+def myPow(self, x: float, n: int) -> float:
+	if n == 0:
+		return 1
+	  
+	if n < 0:
+		x = 1./x
+		n *= -1
+		
+	ans = 1
+	while n != 0:
+		if n % 2 == 1:
+			ans *= x
+			n -= 1
+		x *= x
+		n //= 2
+	return ans
+```

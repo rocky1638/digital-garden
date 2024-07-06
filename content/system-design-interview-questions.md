@@ -40,6 +40,7 @@ Sourced from [here](https://github.com/ashishps1/awesome-system-design-resources
 - [Design Facebook](https://www.youtube.com/watch?v=9-hjBGxuiEs)
 - [Design Twitter](https://www.youtube.com/watch?v=wYk0xPP_P_8)
 - [Design Reddit](https://www.youtube.com/watch?v=KYExYE_9nIY)
+- [[design-reddit]]
 - [Design Netflix](https://www.youtube.com/watch?v=psQzyFfsUGU)
 - [Design Youtube](https://www.youtube.com/watch?v=jPKTo1iGQiE)
 - [Design Google Search](https://www.youtube.com/watch?v=CeGtqouT8eA)
