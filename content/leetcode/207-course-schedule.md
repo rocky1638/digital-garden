@@ -5,7 +5,7 @@ aliases:
 difficulty: 🟡
 link: https://leetcode.com/problems/course-schedule/
 date: 2022-11-20
-updated: 2024-05-23
+updated: 2024-08-05
 tags:
   - topological-sort
   - graph
@@ -22,7 +22,7 @@ Return `true` if you can finish all courses. Otherwise, return `false`.
 
 ## solution
 
-This is a standard [[topological-sort]]. A prerequisite course has a directed edge towards the course that requires it.
+This is a standard topological sort. A prerequisite course has a directed edge towards the course that requires it.
 
 ```python
 def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:

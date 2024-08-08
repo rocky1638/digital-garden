@@ -8,7 +8,7 @@ children:
 supports: 
 enemies:
 date: 2022-12-30
-updated: 2024-05-30
+updated: 2024-08-01
 ---
 
 ## leetcode tips
@@ -57,6 +57,30 @@ def search(self, nums: List[int], target: int) -> int:
 
 Notice that `bisect_right` simply flips the `r=m` and `l=m+1` assignments. The difference in behavior comes from how the `nums[m] == target` case is handled.
 
+## template for “find leftmost that satisfies condition”
+
+```python
+def binsearch():
+	l, r = 0, len(arr)
+	
+	while l < r:
+		m = l+(r-l)//2
+
+		if condition(arr[m]):
+			r = m
+		else:
+			l = m+1
+	# l is at the index of leftmost value that satisfies condition
+	return l	 
+```
+
+The intuition here is that if our current `m` satisfies the condition, we move `r` to `m` (and not `m-1`), because `m` might be the leftmost satisfying value.
+
+On the contrary, if `m` doesn’t satisfy, then we can safely move past it, and set `l=m+1`.
+
+We set `r` to `len(arr)` and not `len(arr)-1` because there could be the case where no values satisfy the condition, in which case we return `len(arr)` which we can interpret as a failure.
+
 ## references
 
 - https://www.piratekingdom.com/leetcode/tricks/leftmost-binary-search
+- https://leetcode.com/problems/koko-eating-bananas/solutions/769702/python-clear-explanation-powerful-ultimate-binary-search-template-solved-many-problems

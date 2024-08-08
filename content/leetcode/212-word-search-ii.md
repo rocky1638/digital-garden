@@ -5,7 +5,7 @@ aliases:
 difficulty: 🔴
 link: https://leetcode.com/problems/word-search-ii/
 date: 2023-01-10
-updated: 2024-03-26
+updated: 2024-08-06
 tags:
   - trie
   - backtracking
@@ -17,7 +17,7 @@ Each word must be constructed from letters of sequentially adjacent cells, where
 
 ## solution
 
-We create a trie to store the list of words that we’re trying to search for. Then, for each cell in the matrix, if it is the start of a word, we bfs starting from it to try to find a matching word.
+We create a trie to store the list of words that we’re trying to search for. Then, for each cell in the matrix, if it is the start of a word, we BFS starting from it to try to find a matching word.
 
 ```python
 class TrieNode:

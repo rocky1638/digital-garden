@@ -1,12 +1,22 @@
 ---
-created_at: 2022-12-13
+title: 24. swap nodes in pairs
 type: leetcode
-aliases: []
+aliases: 
 difficulty: 🟡
 link: https://leetcode.com/problems/swap-nodes-in-pairs/
+date: 2022-12-13
+updated: 2024-08-03
+tags:
+  - linked-list
 ---
 
-# 24. Swap Nodes in Pairs
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+
+## solutions
+
+### iterative
+
+It’s the standard [[206-reverse-linked-list]] with two pointers, with some extra logic for only reversing groups of two.
 
 ```python
 class Solution:
@@ -38,9 +48,21 @@ class Solution:
         return dummy.next
 ```
 
-- create a dummy node for ease of coding.
-- have pointers at the nodes before the ones we want to swap.
-- perform the swap.
-- update the pointers.
+### recursive (recommended)
 
-Categories:: [[linked-list]], [[two-pointers]]
+Instead of complicating the reversal logic, we can just reverse the first two nodes, then recursively call the function on the rest of the list.
+
+```python
+def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+	if not head:
+		return None
+	if not head.next:
+		return head
+
+	n1, n2 = head, head.next
+	  
+	rest = n2.next
+	n2.next = n1
+	n1.next = self.swapPairs(rest)
+	return n2
+```
