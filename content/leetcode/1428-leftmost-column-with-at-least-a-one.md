@@ -1,6 +1,6 @@
 ---
 type: leetcode
-title: 1428. leftmost column with one
+title: 1428. leftmost column with at least a one
 tags:
   - binary-search
 aliases: 
