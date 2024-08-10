@@ -6,7 +6,7 @@ aliases:
 difficulty: 🟡
 link: https://leetcode.com/problems/time-based-key-value-store/
 date: 2022-11-21
-updated: 2024-08-07
+updated: 2024-08-08
 tags:
   - hashmap
   - binary-search
@@ -22,9 +22,9 @@ Implement the `TimeMap` class:
 
 ## solution
 
-- we use a [[hashmap]] to store values of every `key`.
-- at each index of the hashmap, we keep a sorted [[array]] of `timestamp` and `value`.
-- because these arrays are sorted, when we search for timestamps in `get`, we can use [[binary-search]].
+Use a hashmap to store values of every `key`.
+
+At each index of the hashmap, we keep a sorted array of `timestamp` and `value`. Because these arrays are sorted, when we search for timestamps in `get`, we can use binary search.
 
 ```python
 class TimeMap:

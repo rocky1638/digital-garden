@@ -1,4 +1,27 @@
-# 224. Basic Calculator
+---
+type: leetcode
+title: 224. basic calculator
+date: 2022-11-25
+updated: 2024-08-09
+tags:
+  - recursion
+  - string
+  - math
+---
+
+Given a string `s` representing a valid expression, implement a basic calculator to evaluate it, and return _the result of the evaluation_.
+
+**Note:** You are **not** allowed to use any built-in function which evaluates strings as mathematical expressions, such as `eval()`.
+
+## solution
+
+Intuitively, we know we need recursion for brackets, but the hard part is figuring out how to orchestrate everything.
+
+My strategy for this is to keep two running variables, a `tally`, which keeps track of the evaluated value so far, and `prev_op`, which tracks the operation we will perform on `tally` once we see our next number.
+
+Naturally, `prev_op` begins as addition, as when we see our first number, we’ll add it to our initial `tally` of 0.
+
+Then, to handle recursion, we enter recursion when we see an opening bracket and return when we see a closing bracket. Note that the end of the recursion should tell us what value was accumulated within the brackets, as well as where we should pick up our looping again.
 
 ```python
 class Solution:
@@ -40,11 +63,3 @@ class Solution:
                 
         return recurse(0)
 ```
-
-- we use [[recursion]] to assess nested brackets.
-	- when we see an open bracket, we go one level deeper with recursion.
-	- when we see a closing bracket, we return with the next `idx` of the string *(after the closing bracket)* and the value that is returned from the expression in the brackets.
-- keep track of previous operator, defaulting to the plus sign, so whenever we ingest a number, we use that operator with the running tally.
-	- so when we read our first number, we just add it to zero.
-
-[[math]], [[string]]
