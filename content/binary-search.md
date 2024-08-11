@@ -8,7 +8,7 @@ children:
 supports: 
 enemies:
 date: 2022-12-30
-updated: 2024-08-01
+updated: 2024-08-10
 ---
 
 ## leetcode tips
@@ -43,10 +43,10 @@ def search(self, nums: List[int], target: int) -> int:
 	while l < r:
 		m = (l+r) // 2
 
-		if nums[m] > target:
-			r = m
-		else:
+		if nums[m] <= target:
 			l = m+1
+		else:
+			r = m
 
 	return l
 ```

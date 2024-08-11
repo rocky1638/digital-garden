@@ -5,7 +5,7 @@ aliases:
 difficulty: 🔴
 link: https://leetcode.com/problems/minimum-window-substring/
 date: 2022-11-24
-updated: 2024-03-16
+updated: 2024-08-10
 tags:
   - sliding-window
   - hashmap
@@ -57,7 +57,8 @@ We then simply have to make sure that the number of `matched` is equal to the nu
 def minWindow(self, s: str, t: str) -> str:
 	if len(t) > len(s):
 	return ""
-	  
+
+	wc = Counter()
 	tc = Counter(t)
 	matched = 0
 	  
