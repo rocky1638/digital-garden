@@ -3,7 +3,7 @@ type: moc
 aliases: []
 title: "system design moc"
 date: 2022-11-26
-updated: 2024-05-15
+updated: 2024-08-11
 ---
 
 ## book and course notes
@@ -52,6 +52,17 @@ updated: 2024-05-15
 
 See [[system-design-interview-questions]] for my journey in practicing these questions and giving myself feedback.
 
+## insider tips
+
+- As a mid-level candidate, it might be good to let the interviewer drive instead of trying to fill all the dead air… this way, it’s more natural and you’re less likely to dig yourself into a hole.
+- Call out when you don’t know something.
+- Tips for dealing with cold versus warm interviewers:
+	- say stuff like “correct me if I'm wrong, but I think we can do this.”
+- Don’t go into stuff like “how many 9s” if it won’t influence your answer.
+- Assess, provide opinion thoughts, then solicit feedback!! Don’t just write a design from rote memory.
+- Functional requirements mostly stem from _data access patterns._
+
 ## references
 
 - https://www.teamblind.com/post/My-Approach-to-System-Design-V4SJARdx
+- https://interviewing.io/guides/system-design-interview/part-two#part-2-introduction

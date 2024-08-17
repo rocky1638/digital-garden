@@ -1,12 +1,15 @@
 ---
-created_at: 2023-01-07
 type: leetcode
-aliases: []
+title: 138. copy list with random pointer
+aliases: 
 difficulty: 🟡
 link: https://leetcode.com/problems/copy-list-with-random-pointer/
+date: 2023-01-07
+updated: 2024-08-11
+tags:
+  - linked-list
+  - hashmap
 ---
-
-# 138. Copy List With Random Pointer
 
 A linked list of length `n` is given such that each node contains an additional random pointer, which could point to any node in the list, or `null`.
 
@@ -22,6 +25,10 @@ The linked list is represented in the input/output as a list of `n` nodes. Eac
 - `random_index`: the index of the node (range from `0` to `n-1`) that the `random` pointer points to, or `null` if it does not point to any node.
 
 Your code will **only** be given the `head` of the original linked list.
+
+## solution
+
+We keep a hash table that maps the old nodes to the new nodes. Optionally, we can use the `id()` function to key by the memory addresses of the old nodes.
 
 ```python
 class Solution:
@@ -56,17 +63,3 @@ class Solution:
         
         return h[id(head)]
 ```
-
-- we keep a hash table that maps the old nodes to the new nodes.
-- use the `id()` function to key by the memory addresses of the old nodes.
-
-```dataview
-table without id file.inlinks as Backlinks
-where file.name = this.file.name
-```
-
-## Related.
-
-## References.
-
-Categories:: [[linked-list]], [[hashmap]]

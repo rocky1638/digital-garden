@@ -1,6 +1,6 @@
 ---
-type: <% tp.file.cursor() %>
-title: "72. edit distance"
+type: leetcode
+title: 72. edit distance
 tags:
   - two-pointer
   - dp
