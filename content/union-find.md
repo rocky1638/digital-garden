@@ -2,7 +2,7 @@
 type: concept
 aliases: 
 date: 2023-01-13
-updated: 2024-05-19
+updated: 2024-08-24
 tags:
   - union-find
 ---
@@ -27,7 +27,8 @@ class UnionFind:
 	the set that it manages.
 	"""
 	def find(self, x):
-		# if x is already a child to smth else, do collapsing find
+		# for any call to find where x isn't a root node, compress up
+		# the tree
 		if x != self.parent[x]:
 			# recursively updates and caches
 			self.parent[x] = self.find(self.parent[x]) # Path compression

@@ -1,53 +1,45 @@
 ---
-created_at: 2022-11-19
 type: leetcode
-aliases: []
+title: 133. clone graph
+aliases: 
 difficulty: 🟡
 link: https://leetcode.com/problems/clone-graph/
+date: 2022-11-19
+updated: 2024-08-23
+tags:
+  - hashmap
+  - bfs
+  - graph
 ---
 
-# 133. Clone Graph
+Given a reference of a node in a **[connected](https://en.wikipedia.org/wiki/Connectivity_(graph_theory)#Connected_graph)** undirected graph.
+
+Return a [**deep copy**](https://en.wikipedia.org/wiki/Object_copying#Deep_copy) (clone) of the graph.
+
+## solution
+
+We can BFS, making sure to traverse each node only once. Whenever we pop a node, we add all of its neighbors to `node.neighbors`, creating new cloned nodes and adding them to our mapping dictionary if necessary. If the node has not yet been processed, enqueue it.
 
 ```python
-class Solution:
-    def cloneGraph(self, node: 'Node') -> 'Nodxe':
-        if not node:
-            return None
-        
-        clones = {}
-        visited = set([node.val])
-        
-        ret = Node(node.val)
-        clones[node.val] = ret
-        q = deque([node])
-         
-        while q:
-            cur = q.popleft()
-            cur_clone = clones[cur.val]
-            
-            for n in cur.neighbors:
-                # clone neighbor node
-                n_clone = None
-                if n.val in clones:
-                    n_clone = clones[n.val]
-                else:
-                    n_clone = Node(n.val)
-                    clones[n.val] = n_clone
+def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+	if not node:
+		return None
+	  
+	d = {node: Node(node.val)}
+	q = deque([node])
+	  
+	while q:
+		cur = q.popleft()
+	  
+		for neighbor in cur.neighbors:
+			# only visit each node once
+			if neighbor not in d:
+				new_neighbor = Node(neighbor.val)
+				d[neighbor] = new_neighbor
+				q.append(neighbor)
 
-                # link the two new nodes
-                cur_clone.neighbors.append(n_clone)
-                
-                if n.val not in visited:
-                    # append neighbor to queue
-                    q.append(n)
-                    # add to visited
-                    visited.add(n.val)
-        
-        return ret
+			# store all neighbor relationships
+			d[cur].neighbors.append(d[neighbor])
+	  
+	return d[node]
 ```
-
-- conduct a normal [[bfs]] or [[dfs]] to reach all the nodes.
-- we want to visit every node in order to link the correct cloned nodes’ neighbors, so the behavior of the `visited` set is slightly different than in a normal [[bfs]].
-- keep track of cloned nodes in a [[hashmap]].
-
-Categories:: [[bfs]], [[dfs]], [[hashmap]], [[graph]]

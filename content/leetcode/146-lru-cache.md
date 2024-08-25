@@ -1,114 +1,111 @@
 ---
-created_at: 2022-11-23
 type: leetcode
-aliases: []
+title: 146. lru cache
+aliases: 
 difficulty: 🟡
 link: https://leetcode.com/problems/lru-cache/
+date: 2022-11-23
+updated: 2024-08-18
+tags:
+  - linked-list
+  - hashmap
 ---
 
-# 146. LRU Cache
+Design a data structure that follows the constraints of a **[Least Recently Used (LRU) cache](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU)**.
+
+Implement the `LRUCache` class:
+
+- `LRUCache(int capacity)` Initialize the LRU cache with **positive** size `capacity`.
+- `int get(int key)` Return the value of the `key` if the key exists, otherwise return `-1`.
+- `void put(int key, int value)` Update the value of the `key` if the `key` exists. Otherwise, add the `key-value` pair to the cache. If the number of keys exceeds the `capacity` from this operation, **evict** the least recently used key.
+
+The functions `get` and `put` must each run in `O(1)` average time complexity.
+
+## solution
+
+We use a linked list, more specifically, a doubly linked list to keep the nodes in the order of most recently used.
+
+Then, to enable constant-time lookup of a particular node in the DLL by key, use a hashmap to map the `key` values to the nodes in the list.
 
 ```python
-"""
-We create a doubly-linked list with a hashmap
-Hashmap points to the reference for the node in the DLL
-"""
+class DLL:
+	def __init__(self):
+		# head <---> tail
+		# head is most recent, tail is least
+		self.head = DLLNode(None,None)
+		self.tail = DLLNode(None,None)
+		self.head.right = self.tail
+		self.tail.left = self.head
 
-class Node:
-    def __init__(self, val, key, left = None, right = None):
-        self.val = val
-        self.left = left
-        self.right = right
-        self.key = key
+	def insert_at_head(self, node):
+		nex = self.head.right
+		self.head.right = node
+		node.left = self.head
+		node.right = nex
+		nex.left = node
 
+	def remove_node(self, node):
+		prev, nex = node.left, node.right
+  
+		prev.right = nex
+		nex.left = prev
+
+	def remove_at_tail(self):
+		key = self.tail.left.key
+		self.remove_node(self.tail.left)
+		return key
+
+	def __str__(self):
+		res = ""
+		cur = self.head.right
+		while cur != self.tail:
+			res += f"left: {cur.left.val} --- {cur.key}, {cur.val} --- right: {cur.right.val}"
+			res += "\n"
+			cur = cur.right
+		return res
+
+class DLLNode:
+	def __init__(self, key, val):
+		self.key = key
+		self.val = val
+		self.left = None
+		self.right = None
+  
 class LRUCache:
-    def __init__(self, capacity: int):
-        # doubly linked list (goes head->tail left->right)
-        # most recent is at the HEAD
-        # initialized as HEAD <-> TAIL
-        self.head = Node(-1, -1)
-        self.tail = Node(-1, -1)
-        self.head.right = self.tail
-        self.tail.left = self.head
-        self.cache_size = 0
-        self.capacity = capacity
-        
-        # hashmap { key: Node }
-        self.d = {}
-        
-    def _printList(self):
-        out = []
-        cur = self.head.right
-        while cur != self.tail:
-            out.append(cur.val)
-            cur = cur.right
-        print(out)
-        
-    def insertIntoList(self, key):
-        keynode = self.d[key]
-        right_of_head = self.head.right
-        
-        self.head.right = keynode
-        keynode.left = self.head
-        keynode.right = right_of_head
-        right_of_head.left = keynode
-        
-    def makeMostRecent(self, key):
-        keynode = self.d[key]
-        lok = keynode.left
-        rok = keynode.right
-        
-        # connect lok and rok together
-        lok.right = rok
-        rok.left = lok
-        
-        # insert keynode between head and roh
-        roh = self.head.right
-        
-        self.head.right = keynode
-        keynode.left = self.head
-        keynode.right = roh
-        roh.left = keynode
-        
-    def evictLeastRecentlyUsed(self):
-        lru_node = self.tail.left
-        left_of_lru = lru_node.left
-        
-        left_of_lru.right = self.tail
-        self.tail.left = left_of_lru
-        
-        self.cache_size -= 1
-        del self.d[lru_node.key]
+	def __init__(self, capacity: int):
+		self.DLL = DLL()
+		# key: Node
+		self.d = {}
+		self.capacity = capacity
+		self.size = 0
 
-    def get(self, key: int) -> int:
-        # check in dict to see if key exists
-        if key in self.d:
-            # move accessed key node to HEAD <-> NODE(key) <-> .... TAIL
-            self.makeMostRecent(key)
-            # return node value
-            return self.d[key].val
-        else:
-            return -1
+	def _move_node_to_head(self, node):
+		self.DLL.remove_node(node)
+		self.DLL.insert_at_head(node)
+  
+	def get(self, key: int) -> int:
+		if key not in self.d:
+			return -1
+  
+		node = self.d[key]
+		self._move_node_to_head(node)
+		  
+		return node.val
+  
+def put(self, key: int, value: int) -> None:
+	if key in self.d:
+		self.d[key].val = value
+		self._move_node_to_head(node)
+		return
 
-    def put(self, key: int, value: int) -> None:
-        if key in self.d:
-        # if key already in here, update value and move to most recently used
-            keynode = self.d[key]
-            keynode.val = value
-            self.makeMostRecent(key)
-        else:
-        # else, create node and also move to most recently used
-            newnode = Node(value, key)
-            self.d[key] = newnode
-            self.insertIntoList(key)
-            self.cache_size += 1
-            # check cache size and if it's over, evict least recently used (TAIL.left)
-            if self.cache_size > self.capacity:
-                self.evictLeastRecentlyUsed()
+	new_node = DLLNode(key, value)
+  
+	self.d[key] = new_node
+	self.DLL.insert_at_head(new_node)
+	self.size += 1
+  
+	if self.size > self.capacity:
+		popped_key = self.DLL.remove_at_tail()
+		del self.d[popped_key]
+		self.size -= 1
 ```
-
-- we use a [[linked-list]], more specifically, a [[doubly-linked-list]] to keep the nodes in the order of most recently used.
-- we use a [[hashmap]] to map the `key` values to the nodes in the list.
-- just be careful with updating pointers when accessing or inserting items.
-
-Categories:: [[linked-list]], [[doubly-linked-list]], [[hashmap]]
