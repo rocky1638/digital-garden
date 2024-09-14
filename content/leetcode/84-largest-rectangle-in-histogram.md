@@ -6,7 +6,7 @@ difficulty: 🔴
 needs_review: true
 link: https://leetcode.com/problems/largest-rectangle-in-histogram/
 date: 2022-11-25
-updated: 2024-03-15
+updated: 2024-09-02
 tags:
   - array
   - monotonic-stack
@@ -14,7 +14,29 @@ tags:
 
 Given an array of integers `heights` representing the histogram's bar height where the width of each bar is `1`, return _the area of the largest rectangle in the histogram_.
 
-## solution
+## solutions
+
+### divide and conquer
+
+```python
+ def largestRectangleArea(self, heights: List[int]) -> int:
+	  def calculateArea(heights: List[int], start: int, end: int) -> int:
+			if start > end:
+				 return 0
+			min_index = start
+			for i in range(start, end + 1):
+				 if heights[min_index] > heights[i]:
+					  min_index = i
+			return max(
+				 heights[min_index] * (end - start + 1),
+				 calculateArea(heights, start, min_index - 1),
+				 calculateArea(heights, min_index + 1, end),
+			)
+
+	  return calculateArea(heights, 0, len(heights) - 1)
+```
+
+### monotonic stack
 
 The intuition here is that the largest rectangle that we can make will be the height of the smallest bar that is included.
 

@@ -10,7 +10,7 @@ children:
 supports: 
 enemies: 
 date: 2024-08-15
-updated: 2024-08-15
+updated: 2024-08-26
 ---
 
 Given a `pattern` and a string `s`, return `true` _if_ `s` _**matches** the_ `pattern`_._
@@ -64,4 +64,46 @@ def wordPatternMatch(self, pattern: str, s: str) -> bool:
 		return use_current or cont
 	  
 	return recurse(0, 0, 0)
+```
+
+Here’s another solution without using the third recursion parameter of `wl`, but instead we just iterate through each possible mapping for the next pattern character.
+
+```python
+def wordPatternMatch(self, pattern: str, s: str) -> bool:
+	mappings = {}
+	mapped_strs = set()
+	  
+	def recurse(idx, map_idx):
+		if map_idx == len(pattern) and idx == len(s):
+			return True
+		if map_idx == len(pattern) or idx == len(s):
+			return False
+	  
+		# if mapping exists, check if string[idx:idx+map_len] matches mapping
+		if pattern[map_idx] in mappings:
+			mapped = mappings[pattern[map_idx]]
+			# if so, advance idx, map_idx
+			if s[idx:idx+len(mapped)] == mapped:
+				return recurse(idx+len(mapped), map_idx+1)
+			# if not, return False
+			else:
+				return False
+
+		# try mapping each string from idx to end as next pattern
+		valid = False
+		for i in range(idx+1, len(s)+1):
+			sub = s[idx:i]
+
+			if sub in mapped_strs:
+				continue
+		  
+			mappings[pattern[map_idx]] = sub
+			mapped_strs.add(sub)
+			valid = valid or recurse(i, map_idx+1)
+			mapped_strs.remove(sub)
+			del mappings[pattern[map_idx]]
+
+		return valid
+	  
+	return recurse(0, 0)
 ```

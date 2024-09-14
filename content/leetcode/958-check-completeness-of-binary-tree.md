@@ -13,7 +13,6 @@ date: 2022-12-30
 updated: 2024-06-19
 ---
 
-
 Given the `root` of a binary tree, determine if it is a _complete binary tree_.
 
 In a **[complete binary tree](http://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees)**, every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between `1` and `2h` nodes inclusive at the last level `h`.

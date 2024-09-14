@@ -93,7 +93,7 @@ Following this thinking, we instead construct our graph differently, mapping bus
 
 With this in place, we can initialize our queue with all of the bus routes that `source` belongs to. Then, we BFS. For each bus route, we iterate through every stop in the route, enqueueing any new bus routes that these stops connect to.
 
-At any point, if we happen upon `target`, we know we’ve found the shortest path, because our BFS is proceeding in depth-order through bus routes.
+At any point, if we happen upon `target`, we know we’ve found the shortest path, because our BFS is proceeding in level-order through bus routes.
 
 **Notes:**
 1. Just like above, we only ever traverse each bus route once.

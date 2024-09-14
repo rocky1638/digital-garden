@@ -3,7 +3,7 @@ type: moc
 aliases: []
 title: "system design moc"
 date: 2022-11-26
-updated: 2024-08-11
+updated: 2024-09-13
 ---
 
 ## book and course notes
@@ -61,6 +61,27 @@ See [[system-design-interview-questions]] for my journey in practicing these que
 - Don’t go into stuff like “how many 9s” if it won’t influence your answer.
 - Assess, provide opinion thoughts, then solicit feedback!! Don’t just write a design from rote memory.
 - Functional requirements mostly stem from _data access patterns._
+
+## formation course notes
+
+- Stay on track!
+	- Don’t dig yourself into a rabbit hole - clarify requirements, and repeat them back. Ask if you’re missing anything before continuing.
+	- Don’t try to prove seniority!
+		- e.g. Don’t bring up hot shards when it isn’t relevant…
+	- Instead of jumping to a solution, first identify what the problems/bottlenecks are!!
+- Communication.
+	- Don’t get stuck in requirements gathering.
+		- Ask about functionality! User journey, what does the product do.
+	- Write as you go!!
+	- If a decision is worth stating, then it’s worth defending/showing your work!
+		- When making decisions, walk through your thought process before making a decision!
+- Thinking like an engineer.
+	- Start from requirements.
+	- Foresee edge cases/non-happy path!
+- Driving the conversation.
+	- Use “let’s”.
+	- Identify the hardest problem.
+	- Don’t ask for too much permission!
 
 ## references
 

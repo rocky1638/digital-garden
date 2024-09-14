@@ -9,7 +9,7 @@ children:
 supports: 
 enemies: 
 date: 2024-07-10
-updated: 2024-07-10
+updated: 2024-08-31
 ---
 
 Given a string s of `'('` , `')'` and lowercase English characters.
@@ -54,4 +54,28 @@ def minRemoveToMakeValid(self, s: str) -> str:
 				op -= 1
 	  
 	return "".join([c for c in ls if c is not None])
+```
+
+Here’s a slightly refactored approach with a helper function.
+
+```python
+def minRemoveToMakeValid(self, s: str) -> str:
+	res = list(s)
+	  
+	def delete_invalid_closing(open_symbol, close_symbol):
+		o = 0
+		for i in range(len(res)):
+			c = res[i]
+			if c == open_symbol:
+				o += 1
+			if c == close_symbol:
+				if o == 0:
+					res[i] = ""
+				else:
+					o -= 1
+
+	delete_invalid_closing("(", ")")
+	res = res[::-1]
+	delete_invalid_closing(")", "(")
+	return "".join(res[::-1])
 ```

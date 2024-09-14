@@ -1,4 +1,12 @@
-# 297. Serialize and Deserialize Binary Tree
+---
+type: leetcode
+title: 297. serialize and deserialize binary tree
+date: 2022-11-24
+updated: 2024-08-25
+tags:
+  - dfs
+  - binary-tree
+---
 
 Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
 

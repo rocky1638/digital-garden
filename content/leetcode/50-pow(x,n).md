@@ -5,8 +5,10 @@ aliases: []
 difficulty: 🟡
 link: https://leetcode.com/problems/powx-n/
 date: 2022-12-29
-updated: 2024-05-28
+updated: 2024-08-28
 ---
+
+Implement [pow(x, n)](http://www.cplusplus.com/reference/valarray/pow/), which calculates `x` raised to the power `n` (i.e., `xn`).
 
 ## solutions
 
@@ -65,7 +67,8 @@ def myPow(self, x: float, n: int) -> float:
 		if n % 2 == 1:
 			ans *= x
 			n -= 1
-		x *= x
-		n //= 2
+		else:
+			x *= x
+			n //= 2
 	return ans
 ```

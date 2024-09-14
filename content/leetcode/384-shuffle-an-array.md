@@ -9,7 +9,7 @@ children:
 supports: 
 enemies: 
 date: 2022-12-30
-updated: 2024-08-07
+updated: 2024-08-26
 ---
 
 Given an integer array `nums`, design an algorithm to randomly shuffle the array. All permutations of the array should be **equally likely** as a result of the shuffling.
@@ -58,6 +58,13 @@ class Solution:
 Instead of sorting, we can actually do in-place swaps as we go through the array. For each index, we swap it with a random value to the right in the array.
 
 A proof of this method can be found [here](https://people.cs.umass.edu/~phaas/CS590M/handouts/Fisher-Yates-proof.pdf).
+
+> [!note] Some more intuition
+> An interesting way to think about this is to imagine how you would go about sorting the list of `[1,2,3]`. We could think about of recursively, first randomly picking an index to place the `1`. Then, in each of the subsequent paths, we pick a random index for `2` out of the remaining indices.
+>
+> Logically, **it is equivalent to pick a value for the first index, instead of picking an index for the first value!**
+>
+> This conveniently leads us to the solution below, where we can pick any value from `[0,n-1]` to swap and place at index 0. Then, we can consider the array from `[1,n-1]`, picking a remaining value to be placed at index 1.
 
 ```python
 class Solution:

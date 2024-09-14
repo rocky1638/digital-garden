@@ -5,11 +5,15 @@ aliases:
 difficulty: 🟡
 link: https://leetcode.com/problems/maximum-subarray/
 date: 2022-11-15
-updated: 2024-02-24
+updated: 2024-09-02
 tags:
   - dp
   - array
 ---
+
+## solutions
+
+### kadane’s algorithm
 
 ```python
 class Solution:
@@ -35,3 +39,31 @@ A_i \text{ if } i=0 \\
 \max(A_i, M_{i-1}+A_i) \text{ otherwise}
 \end{cases}
 $$
+
+### prefix sums with constant space
+
+Similar class of problems to: [[523-continuous-subarray-sum]], [[525-contiguous-array]].
+
+```python
+class Solution:
+
+def maxSubArray(self, nums: List[int]) -> int:
+
+res = -inf
+
+prefix = 0
+
+minprefixsofar = 0
+
+  
+
+for num in nums:
+
+prefix += num
+
+res = max(res, prefix-minprefixsofar)
+
+minprefixsofar = min(minprefixsofar, prefix)
+
+return res
+```

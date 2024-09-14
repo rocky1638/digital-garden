@@ -15,6 +15,7 @@ Return _the length of the longest substring containing the same letter you can 
 ## solution
 
 We use a sliding window approach. Keep track of the frequency of characters in our window with a frequency map.
+
 The main intuition is that at every character, we have to consider the _most common character_ as the main character. If after choosing our main character, there are more than `k` other characters in the window, we slide the left pointer up until there are less than `k` other characters.
 
 Note that the “main" character may change during this process, so we have to update our “main” character after each removal from the left and addition from the right.

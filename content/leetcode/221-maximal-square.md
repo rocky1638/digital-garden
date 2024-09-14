@@ -1,10 +1,15 @@
 ---
+type: leetcode
 title: 221. maximal square
 date: 2022-12-27
-updated: 2024-05-22
+updated: 2024-09-02
 tags:
   - dp
 ---
+
+Given an `m x n` binary `matrix` filled with `0`'s and `1`'s, _find the largest square containing only_ `1`'s _and return its area_.
+
+![[221-maximal-square.png]]
 
 ## solution
 

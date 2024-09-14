@@ -1,12 +1,12 @@
 ---
-created_at: 2023-01-18
 type: leetcode
+title: 1122. relative sort array
 aliases: []
 difficulty: 🟢
 link: https://leetcode.com/problems/relative-sort-array/
+date: 2023-01-18
+updated: 2024-09-02
 ---
-
-# 1122. Relative Sort Array
 
 Given two arrays `arr1` and `arr2`, the elements of `arr2` are distinct, and all elements in `arr2` are also in `arr1`.
 
@@ -17,6 +17,14 @@ Example:
 Input: arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]
 Output: [2,2,2,1,4,3,3,9,6,7,19]
 ```
+
+## solutions
+
+### hashmap
+
+We keep a frequency counter for `arr1`, and just move all the values that match with a value in `arr2` into a new output array.
+
+Then, just sort the rest of the values and append them to the output array.
 
 ```python
 class Solution:
@@ -36,8 +44,26 @@ class Solution:
         return ans
 ```
 
-- we keep a frequency counter for `arr1`, and just move all the values that match with a value in `arr2` into a new output array.
-- then, just sort the rest of the values and append them to the output array.
+### bucket / count sort
+
+```python
+def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+	counts = [0]*1001
+	for num in arr1:
+		counts[num] += 1
+	  
+	res = []
+	for num in arr2:
+		if counts[num] > 0:
+			res.extend([num]*counts[num])
+			counts[num] = 0
+	  
+	for i in range(len(counts)):
+		if num > 0:
+			res.extend([i]*counts[i])
+
+	return res
+```
 
 ```dataview
 table without id file.inlinks as Backlinks

@@ -4,6 +4,8 @@ type: leetcode
 aliases: []
 difficulty: 🟡
 link: https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+date: 2022-11-22
+updated: 2024-09-03
 ---
 
 # 17. Letter Combinations of a Phone Number

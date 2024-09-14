@@ -50,4 +50,4 @@ where file.name = this.file.name
 
 ## References.
 
-Categories:: [[interval]], [[greedy]], [[sorting]], [[array]]
+Categories:: [[intervals]], [[greedy]], [[sorting]], [[array]]

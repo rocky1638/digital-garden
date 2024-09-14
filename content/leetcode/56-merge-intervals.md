@@ -1,12 +1,24 @@
 ---
-created_at: 2022-11-21
 type: leetcode
-aliases: []
+title: 56. merge intervals
+aliases: 
 difficulty: 🟡
 link: https://leetcode.com/problems/merge-intervals/
+date: 2022-11-21
+updated: 2024-08-28
+tags:
+  - sorting
+  - array
+  - intervals
 ---
 
-# 56. Merge Intervals
+Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return _an array of the non-overlapping intervals that cover all the intervals in the input_.
+
+## solution
+
+First, we sort the intervals by starting time. Push new intervals into `merged` array.
+
+If the next interval overlaps, update the top element of `merged`.
 
 ```python
 class Solution:
@@ -24,10 +36,3 @@ class Solution:
                 merged.append(interval)
         return merged
 ```
-
-- classic [[interval]] problem.
-- sort the intervals by starting time.
-- push new intervals into `merged` array.
-- if the next interval overlaps, update the top element of `merged`.
-
-Categories:: [[sorting]], [[array]], [[interval]]

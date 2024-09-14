@@ -1,14 +1,21 @@
 ---
-created_at: 2023-01-10
 type: leetcode
+title: 90. subsets ii
 aliases: []
 difficulty: 🟡
 link: https://leetcode.com/problems/subsets-ii
+date: 2023-01-10
+updated: 2024-09-02
 ---
 
-# 90. Subsets II
+Given an integer array `nums` that may contain duplicates, return _all possible subsets (the power set)_.
+
+The solution set **must not** contain duplicate subsets. Return the solution in **any order**.
 
 ## Using extra space.
+
+- we use a set here to remember the subsets that we’ve seen already.
+- we sort because leetcode expects the actual subsets to be in order.
 
 ```python
 class Solution:
@@ -33,10 +40,9 @@ class Solution:
         return ans
 ```
 
-- we use a set here to remember the subsets that we’ve seen already.
-- we sort because leetcode expects the actual subsets to be in order.
-
 ## Without extra space.
+
+Instead of keeping a set to store what we’ve seen, we just store the duplicates in “blocks”, and then we can recurse on every possible number of them at once instead of risking the chance of using the same number of a duplicate in two recursive branches.
 
 ```python
 class Solution:
@@ -79,15 +85,29 @@ class Solution:
         return ans
 ```
 
-- instead of keeping a set to store what we’ve seen, we just store the duplicates in “blocks”, and then we can recurse on every possible number of them at once instead of risking the chance of using the same number of a duplicate in two recursive branches.
+Here’s another elegant way to do it without the block construction.
 
-```dataview
-table without id file.inlinks as Backlinks
-where file.name = this.file.name
+The way we append “intermediate” values of `acc` to our `res` kind of reminds me of [[254-factor-combinations]].
+
+```python
+def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+	nums.sort()
+	res = []
+	acc = []
+
+	# recursive call tries to fill the current idx in subset
+	# with every distinct value...
+	def recurse(idx):
+		res.append(acc[:])
+	  
+		for i in range(idx, len(nums)):
+			# this is why we skip duplicates
+			if i > idx and nums[i] == nums[i-1]:
+				continue
+			acc.append(nums[i])
+			recurse(i+1)
+			acc.pop()
+	  
+	recurse(0)
+	return res
 ```
-
-## Related.
-
-## References.
-
-Categories:: [[backtracking]], [[recursion]], [[array]], [[hashmap]]

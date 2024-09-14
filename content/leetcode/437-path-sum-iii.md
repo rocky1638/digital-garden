@@ -1,37 +1,85 @@
-# 437. Path Sum III
+---
+type: leetcode
+title: 437. path sum iii
+tags:
+  - prefix-sums
+  - binary-tree
+  - dfs
+date: 2022-12-29
+updated: 2024-09-10
+---
+
+Given the `root` of a binary tree and an integer `targetSum`, return _the number of paths where the sum of the values along the path equals_ `targetSum`.
+
+The path does not need to start or end at the root or a leaf, but it must go downwards (i.e., traveling only from parent nodes to child nodes).
+
+![[437-path-sum-iii.png]]
+
+## solutions
+
+### nested recursion starting from every node
+
+Each call of `recurse` finds all the paths starting at `node`. In the main function, we try calling `recurse` with every node.
 
 ```python
-class Solution:
-    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        """
-        - at each recursion, we could either continue the path from the parent node,
-          or start a new path at the current node.
-        - collect all the possible sums down each full length path, starting from each node
-        - at each node in the recursion, see how many subpaths in that path
-          amounted to our targetSum
-        """
+def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+	if not root:
+		return 0
 
-        ans = 0
-        def recurse(node, sums):
-            nonlocal ans
+	ans = 0
+	acc = 0
 
-            if node:
-                sums = [x + node.val for x in sums]
-                sums.append(node.val)
+	def recurse(node):
+		nonlocal acc, ans
+		if not node:
+			return
+	
+		acc += node.val
+		if acc == targetSum:
+			ans += 1
+	
+		recurse(node.left)
+		recurse(node.right)
 
-                for val in sums:
-                    if val == targetSum:
-                        ans += 1
+		# backtrack
+		acc -= node.val
 
-                recurse(node.left, sums)
-                recurse(node.right, sums)
-
-                
-        recurse(root, [])
-        return ans
+	# all paths starting at root
+	recurse(root) 
+	# all paths starting at children
+	ans += self.pathSum(root.left, targetSum)
+	ans += self.pathSum(root.right, targetSum)
+	return ans 
 ```
 
-- along each branch of our [[recursion]] in the [[dfs]], we keep an [[array]] `sums` of the sums of all the possible subpaths if they had started on each of the previous nodes.
-- similarly on each node, we check to see if any of the possible sums equal to our `targetSum`.
+### recursion + prefix sums
 
-[[binary-tree]], [[tree]]
+We basically do the idea of [[523-continuous-subarray-sum]] or [[525-contiguous-array]]. We keep a count of the number of times each prefix appears, and then we can calculate how many paths ending at the current node sum to `targetSum` in constant time.
+
+```python
+def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+	ans = 0
+	prefix_counts = Counter()
+	prefix_counts[0] = 1
+	acc = 0
+	
+	def recurse(node):
+		nonlocal acc, ans
+		if not node:
+			return
+
+		acc += node.val
+		ans += prefix_counts[acc-targetSum]
+	
+		prefix_counts[acc] += 1
+		recurse(node.left)
+
+		recurse(node.right)
+
+		# backtrack
+		prefix_counts[acc] -= 1
+		acc -= node.val
+	
+	recurse(root)
+	return ans
+```

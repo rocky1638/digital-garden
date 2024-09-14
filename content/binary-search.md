@@ -8,7 +8,7 @@ children:
 supports: 
 enemies:
 date: 2022-12-30
-updated: 2024-08-10
+updated: 2024-08-31
 ---
 
 ## leetcode tips
@@ -55,7 +55,9 @@ def search(self, nums: List[int], target: int) -> int:
 
 `bisect_right` will always return the index after all of the existing targets if target exists in the array, and the index to insert if it does not exist.
 
-Notice that `bisect_right` simply flips the `r=m` and `l=m+1` assignments. The difference in behavior comes from how the `nums[m] == target` case is handled.
+Notice the only difference between `bisect_left` and `bisect_right` is how the “equals” case is handled. In `bisect_left`, `l` doesn’t move and `r` moves down if the value equals. This means that `l` will stay on the left of block of equals values.
+
+For `bisect_right`, `l` moves right even on equals, meaning it’ll move past all of the values that are equal to our `target` and end up on the right of them.
 
 ## template for “find leftmost that satisfies condition”
 

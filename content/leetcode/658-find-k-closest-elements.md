@@ -2,7 +2,7 @@
 title: 658. find k closest elements
 type: leetcode
 date: 2024-07-19
-updated: 2024-07-19
+updated: 2024-09-01
 tags:
   - heap
   - binary-search
@@ -52,7 +52,12 @@ Instead of maintaining a heap, we can take advantage of the knowledge that `arr`
 def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
 	if len(arr) == k:
 		return arr
-	  
+
+	# bisect_left lands on the index of the first
+	# element that is >= x
+	# so, we should look on both "sides" of x, hence
+	# we subtract 1 from l, and keep r = bisect_left because
+	# arr[r] could == x
 	l = bisect_left(arr, x) - 1
 	r = l + 1
 	  

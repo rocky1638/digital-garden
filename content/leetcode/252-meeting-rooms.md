@@ -12,7 +12,7 @@ class Solution:
         return True
 ```
 
-- sort the [[interval|intervals]] by start time.
+- sort the [[intervals|intervals]] by start time.
 - if any meeting ends after the next one starts, we have a conflict.
 
 [[sorting]]

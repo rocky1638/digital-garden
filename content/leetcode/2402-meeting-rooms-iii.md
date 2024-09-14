@@ -65,12 +65,12 @@ def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
 		# next meeting should start
 		else:
 			if len(avail_rooms):
-			start_time = t
-			end_time = t + (next_meeting[1] - next_meeting[0])
-			room = heappop(avail_rooms)
-			heappush(in_progress, (end_time, room))
-			count[room] += 1
-			meeting_idx += 1
+				start_time = t
+				end_time = t + (next_meeting[1] - next_meeting[0])
+				room = heappop(avail_rooms)
+				heappush(in_progress, (end_time, room))
+				count[room] += 1
+				meeting_idx += 1
 
 			# no rooms avail, fast-forward until room is free
 			else:

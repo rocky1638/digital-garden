@@ -5,7 +5,7 @@ aliases:
 difficulty: 🔴
 link: https://leetcode.com/problems/trapping-rain-water/
 date: 2022-11-24
-updated: 2024-05-22
+updated: 2024-08-30
 tags:
   - two-pointer
   - array
@@ -70,6 +70,27 @@ def trap(self, height: List[int]) -> int:
 		else:
 			ans += (max(0, rightmax-height[r]))
 			r -= 1
+	return ans
+```
+
+```python
+def trap(self, height: List[int]) -> int:
+	n = len(height)
+	ans = 0
+	  
+	l, r = 0, n-1
+	lmax, rmax = height[l], height[r]
+	  
+	while l < r:
+		if lmax < rmax:
+			l += 1
+			lmax = max(lmax, height[l])
+			ans += max(0, lmax - height[l])
+		else:
+			r -= 1
+			rmax = max(rmax, height[r])
+			ans += max(0, rmax - height[r])
+	  
 	return ans
 ```
 

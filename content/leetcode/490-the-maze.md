@@ -10,7 +10,7 @@ children:
 supports: 
 enemies: 
 date: 2024-08-08
-updated: 2024-08-08
+updated: 2024-08-25
 ---
 
 There is a ball in a `maze` with empty spaces (represented as `0`) and walls (represented as `1`). The ball can go through the empty spaces by rolling **up, down, left or right**, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction.
@@ -31,7 +31,7 @@ We can keep a `seen` set to make sure DFS doesn’t infinitely loop, and use `me
 def hasPath(self, maze: List[List[int]], start: List[int], destination: List[int]) -> bool:
 	m, n = len(maze), len(maze[0])
 	dirs = [[0,1],[1,0],[0,-1],[-1,0]]
-	seen = set([(start[0], start[1])])
+	seen = set([tuple(start)])
 	memo = {}
 	  
 	def dfs(x, y):

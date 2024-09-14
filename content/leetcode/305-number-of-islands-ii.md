@@ -10,7 +10,7 @@ children:
 supports: 
 enemies: 
 date: 2024-08-07
-updated: 2024-08-07
+updated: 2024-08-26
 ---
 
 You are given an empty 2D binary grid `grid` of size `m x n`. The grid represents a map where `0`'s represent water and `1`'s represent land. Initially, all the cells of `grid` are water cells (i.e., all the cells are `0`'s).
@@ -73,15 +73,15 @@ def numIslands2(self, m: int, n: int, positions: List[List[int]]) -> List[int]:
 			ans.append(components)
 			continue
 
-	sizes[coord] = 1
-	parents[coord] = coord
-	components += 1
-	  
-	for dx, dy in dirs:
-		nx, ny = x+dx, y+dy
-		if 0 <= nx < m and 0 <= ny < n:
-			if sizes[(nx, ny)] > 0:
-				union((x,y), (nx, ny))
+		sizes[coord] = 1
+		parents[coord] = coord
+		components += 1
+		  
+		for dx, dy in dirs:
+			nx, ny = x+dx, y+dy
+			if 0 <= nx < m and 0 <= ny < n:
+				if sizes[(nx, ny)] > 0:
+					union((x,y), (nx, ny))
 		ans.append(components)
 	return ans
 ```

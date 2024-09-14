@@ -24,7 +24,7 @@ class Solution:
         return max_rooms
 ```
 
-- like in [[252-meeting-rooms]], we sort the [[interval|intervals]] by starting time.
+- like in [[252-meeting-rooms]], we sort the [[intervals|intervals]] by starting time.
 - then, we use a [[heap]] to keep track of the rooms that are currently in use.
 	- we use a min-heap so that we know which room will become available first.
 	- if the next meeting starts after this room becomes available, we can just use this room and update the end time on this room instead of using another new room.

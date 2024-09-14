@@ -5,7 +5,7 @@ aliases:
 difficulty: 🟡
 link: https://leetcode.com/problems/copy-list-with-random-pointer/
 date: 2023-01-07
-updated: 2024-08-11
+updated: 2024-08-29
 tags:
   - linked-list
   - hashmap
@@ -62,4 +62,36 @@ class Solution:
             cur = cur.next
         
         return h[id(head)]
+```
+
+Here’s another solution in one-pass, where we just create copies for future nodes on a per-need basis.
+
+```python
+def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+	if not head:
+		return head
+
+	d = {}
+	cur = head
+	  
+	while cur:
+		# get_or_create cur copy
+		if cur not in d:
+			d[cur] = Node(cur.val)
+		cur_copy = d[cur]
+	  
+		# set and create next copy if necessary
+		if cur.next:
+			if cur.next not in d:
+				d[cur.next] = Node(cur.next.val)
+			cur_copy.next = d[cur.next]
+
+		# set and create random copy if necessary
+		if cur.random:
+			if cur.random not in d:
+				d[cur.random] = Node(cur.random.val)
+			cur_copy.random = d[cur.random]
+
+		cur = cur.next
+	return d[head]
 ```
