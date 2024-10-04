@@ -1,12 +1,12 @@
 ---
-created_at: 2022-11-21
 type: leetcode
+title: 721. accounts merge
 aliases: []
 difficulty: 🟡
 link: https://leetcode.com/problems/accounts-merge/
+date: 2022-11-21
+updated: 2024-09-16
 ---
-
-# 721. Accounts Merge
 
 Given a list of `accounts` where each element `accounts[i]` is a list of strings, where the first element `accounts[i][0]` is a name, and the rest of the elements are **emails** representing emails of the account.
 
@@ -14,7 +14,9 @@ Now, we would like to merge these accounts. Two accounts definitely belong to th
 
 After merging the accounts, return the accounts in the following format: the first element of each account is the name, and the rest of the elements are emails **in sorted order**. The accounts themselves can be returned in **any order**.
 
-## Using bfs and seen set.
+## solutions
+
+### bfs and seen set
 
 ```python
 class Solution:
@@ -65,7 +67,7 @@ class Solution:
 - we can bfs from an email to find all the other emails for a person.
 	- keep a `seen` set so we don’t look at the same email twice.
 
-## Using union-find.
+### union-find
 
 ```python
 class UnionFind:

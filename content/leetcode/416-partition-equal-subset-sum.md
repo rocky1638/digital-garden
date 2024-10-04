@@ -1,43 +1,53 @@
 ---
-created_at: 2022-11-22
 type: leetcode
-aliases: []
+title: 416. partition equal subset sum
+tags:
+  - recursion
+  - memoization
+  - dp
+aliases: 
 difficulty: 🟡
 link: https://leetcode.com/problems/partition-equal-subset-sum/
+date: 2022-11-22
+updated: 2024-09-28
 ---
-
-# 416. Partition Equal Subset Sum
 
 Given an integer array `nums`, return `true` _if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or_ `false` _otherwise_.
 
-```python
-class Solution:
-    def canPartition(self, nums: List[int]) -> bool:
-        # we just need to find if some subset of the nums can sum to 
-        # half the total sum of nums
-        
-        s = sum(nums)
-        if s % 2 == 1:
-            return False
-        
-        half = s // 2
-        
-        # dp[i][j] = if sum j can be added up to with numbers from nums[:i]
-        # for memory sake, we only have to store the previous row
-        dp = [True] + [False]*half # always possible to make sum of 0 (don't pick anything)
-        
-        for i in range(len(nums)):
-            next_dp = [True] + [False]*half
-            for j in range(1, half+1):
-                # at each sum, we can create the sum by using the new element or not
-                # similar to knapsack
-                not_using = dp[j]
-                using = dp[j-nums[i]] if nums[i] <= j else False
-                next_dp[j] = not_using or using
-            dp = next_dp[:]
+## solutions
 
-        return dp[-1]
+### recursion w/ memoization
+
+```python
+def canPartition(self, nums: List[int]) -> bool:
+	s = sum(nums)
+	if s & 1:
+		return False
+	  
+	target = s // 2
+	memo = {}
+	def recurse(idx, acc):
+		nonlocal target
+		if acc == target:
+			return True
+		if idx == len(nums) or acc > target:
+			return False
+		if (idx, acc) in memo:
+			return memo[(idx, acc)]
+
+		res = False
+		# take
+		res |= recurse(idx+1, acc+nums[idx])
+		# skip
+		res |= recurse(idx+1, acc)
+		  
+		memo[(idx, acc)] = res
+		return res
+
+	return recurse(0, 0)
 ```
+
+### dp
 
 - to see if the array can be divided into two equal subsets, we just need to make sure that a subset of the array can sum to half of the total sum of the array.
 - to do this, we can do it either top-down or bottom-up with [[dynamic-programming]].
@@ -49,8 +59,29 @@ class Solution:
 		- using the current value, we look at `dp[i-1][j-nums[i]]` (only if `nums[i]` is $\leq j$.
 	- for my actual implementation, i just store the previous row of the `dp` instead of everything, for memory purposes.
 
-## References.
+```python
+def canPartition(self, nums: List[int]) -> bool:
+	s = sum(nums)
+	if s & 1:
+		return False
+	target = s // 2
+	  
+	# sum of 0 is trivially doable
+	dp = [[True]+[False]*target for _ in range(len(nums)+1)]
+	  
+	for i in range(1, len(nums)+1):
+		for j in range(1, target+1):
+			skip = dp[i-1][j]
+	  
+			take = False
+			if j >= nums[i-1]:
+				take = dp[i-1][j-nums[i-1]]
+	  
+			dp[i][j] = skip or take
+
+	return dp[-1][-1]
+```
+
+## references
 
 - https://en.wikipedia.org/wiki/Knapsack_problem
-
-Categories:: [[dynamic-programming]], [[recursion]], [[memoization]]

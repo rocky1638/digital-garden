@@ -8,19 +8,26 @@ children:
 supports: 
 enemies: 
 date: 2022-12-30
-updated: 2024-08-14
+updated: 2024-09-26
 ---
 
 ## notes
 
-TODO: categorize
+- Arc
+- Raycast
+- Hyperkey
+- KeyCue
+- Shottr
 - Aerospace
+	- JankyBorders
+	- SketchyBar
+	- Spicetify (spotify theming)
 - Yazi
 	- smart filter plugin (official)
 	- glow md preview
 	- toggle full-size preview plugin (official)
-- Arc
+- Raindrop.io
+- Things 3
 - ZSH/ohmyzsh
-- kitty
+- WezTerm
 - Bartender
-- Raycast
