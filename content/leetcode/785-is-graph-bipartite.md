@@ -62,3 +62,27 @@ def isBipartite(self, graph: List[List[int]]) -> bool:
 ```
 
 ### dfs coloring
+
+We can use the same logic doing a DFS traversal, maintaining a global coloring hash.
+
+```python
+def isBipartite(self, graph: List[List[int]]) -> bool:
+	colors = {}
+	def dfs(node, color):
+		colors[node] = color
+	  
+		valid = True
+		for neighbor in graph[node]:
+			if neighbor in colors and colors[neighbor] == color:
+				return False
+			if neighbor not in colors:
+				valid &= dfs(neighbor, 1-color)
+		return valid
+
+	for node in range(len(graph)):
+		if node not in colors:
+			if not dfs(node, 0):
+				return False
+	  
+	return True
+```
