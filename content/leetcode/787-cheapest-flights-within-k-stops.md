@@ -5,7 +5,7 @@ aliases:
 difficulty: 🟡
 link: https://leetcode.com/problems/cheapest-flights-within-k-stops/
 date: 2023-01-17
-updated: 2024-05-29
+updated: 2024-11-01
 tags:
   - graph
   - bfs
@@ -24,9 +24,13 @@ You are also given three integers `src`, `dst`, and `k`, return _**the cheap
 
 We do a bfs with a priority queue to always advance our bfs to the cheapest next node first. This guarantees that the first time we reach the destination, that is the cheapest path to reach it.
 
-In order to improve efficiency, we keep track of the optimal ways that we have reached each node so far. We keep track of the weight and number of stops it took to reach each node.
+We know that the first time we reach `dst`, it must be the optimal solution, because our BFS using a priority queue performs a “best-first-search”.
 
-**If we see a repeat node in our BFS, we only go to it if it improves on either the weight or the number of stops.** Note that if we BFS by level (as in the next solution), we won’t need to keep track of how many stops we’ve taken because that will be increasing monotonically.
+We don’t actually need to store the best score we’ve seen for a node, because we’ll always visit the best score for a node first. So, the only thing we need to store, as a special constraint for this problem, is the fewest stops it has taken us to reach a certain node. Consider the example below. We’ll traverse `src->1->2->3` before taking the `src->3` route, but we’re OK to update `visited[3]` because the optimal `dst` path has already been added to the queue.
+
+If there was a longer path from `3->dst` that contained negative weights, updating `visited[3]` would allow us to explore it if `k` was a constraint, because the `src->1->2->3` path might miss it due to already using too many stops.
+
+![[787-cheapest-flights-within-k-stops-example.png]]
 
 ```python
 def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
@@ -37,20 +41,20 @@ def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int
 	# heap[i] = (weightsofar, stopssofar, node)
 	# we start with the src, and no cost
 	minHeap = [(0, -1, src)]
-	# stop: (weight, num_stops)
-	visited = {src: (0, -1)}
+	# stop: min num_stops seen for node
+	visited = {}
 	
 	while minHeap:
 		w1, s1, n1 = heapq.heappop(minHeap)
+		visited[n1] = s1
 		if n1 == dst and s1 <= k:
 			return w1
 		elif s1 > k:
 			continue
 	
 	for neighbor, weight in g[n1]:
-		if neighbor not in visited or visited[neighbor][0] >= w1+weight or visited[neighbor][1] > s1+1:
-		visited[neighbor] = (w1+weight, s1+1)
-		heapq.heappush(minHeap, (w1+weight, s1+1, neighbor))
+		if neighbor not in visited or visited[neighbor][1] > s1+1:
+			heapq.heappush(minHeap, (w1+weight, s1+1, neighbor))
 	
 	return -1
 ```

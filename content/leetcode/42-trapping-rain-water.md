@@ -5,7 +5,7 @@ aliases:
 difficulty: 🔴
 link: https://leetcode.com/problems/trapping-rain-water/
 date: 2022-11-24
-updated: 2024-08-30
+updated: 2024-10-28
 tags:
   - two-pointer
   - array
@@ -56,22 +56,34 @@ This is because in both cases, our answer stays the same:
 
 ```python
 def trap(self, height: List[int]) -> int:
-	l, r = 0, len(height)-1
-	leftmax, rightmax = 0, 0
+	n = len(height)
 	ans = 0
-	
+	  
+	l, r = 0, n-1
+	lmax = rmax = 0
+	  
 	while l < r:
-		leftmax = max(leftmax, height[l])
-		rightmax = max(rightmax, height[r])
-		
-		if leftmax < rightmax:
-			ans += (max(0, leftmax-height[l]))
+		# set lmax and rmax of edge heights
+		# to start
+		lmax = max(lmax, height[l])
+		rmax = max(rmax, height[r])
+	  
+		# if lmax is smaller, we don't care if there's
+		# a bigger wall to the right bigger than rmax...
+		# we're already limited by lmax
+		# so, we can calculate the water trapped for l+1
+		if lmax < rmax:
 			l += 1
+			ans += max(0, lmax - height[l])
+		# vice versa for right
 		else:
-			ans += (max(0, rightmax-height[r]))
 			r -= 1
+			ans += max(0, rmax - height[r])
+	  
 	return ans
 ```
+
+Just another option if one of them happens to make more sense to me at any given time…
 
 ```python
 def trap(self, height: List[int]) -> int:

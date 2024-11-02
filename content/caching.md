@@ -1,55 +1,60 @@
-# caching
+---
+date: 2022-11-26
+updated: 2024-10-08
+type: concept
+---
 
 ![](https://github.com/donnemartin/system-design-primer/raw/master/images/Q6z24La.png)
 
-- refers to in-memory caches such as [[memcached]] or [[redis]].
-- they act as a buffering layer between your application and your data storage.
-	- help to balance out loads between reads and writes on your servers.
-- cache is very fast!
-	- redis can do hundreds of thousands of read operations per second.
-- caching can happen on the client-side, in [[content-delivery-network]], server-side.
-- two ways to cache data server-side.
-	- caching queries.
-		- we cache query results, so the next time the exact query is run, we can just grab it from the cache.
-		- downside is that if any value in that query result changes, the entire query result has to be removed from the cache.
-	- caching objects.
-		- cache objects/classes just like in [[object-oriented-programming]], and easily evict stuff based on when the object gets updated.
-		- some things that are normally cached:
-			- user sessions.
-			- fully rendered `html` files.
-			- social network friend relationships.
-- cache update policies.
-	- cache-aside.
-		- ![300](https://github.com/donnemartin/system-design-primer/raw/master/images/ONjORqk.png)
-		- cache doesn’t talk directly to storage.
-		- client checks cache first, and on a cache-miss, the client grabs from the database and save the value to the cache.
-		- memcached is generally used like this.
-		- disadvantages.
-			- each cache miss results in three trips.
-			- cache data can become stale if it’s updated in the database.
-				- make sure to have TTL set.
-	- write-through.
-		- application writes and reads everything to cache.
-		- cache is in charge of updating the database synchronously.
-		- disadvantages.
-			- when a new node is created, entries won’t be cached until the values are updated in the database.
-	- write-behind/write-back.
-		- ![300](https://github.com/donnemartin/system-design-primer/raw/master/images/rgSrvjG.png)
-		- same as write-through, but the cache updates the db asynchronously using a queue (see [[asynchronism]]).
-		- disadvantages.
-			- could be data loss if the cache goes down before the database is updated.
-	- refresh-ahead.
-		- configure the cache to automatically refresh entries before they expire.
-			- highly dependent on if we can accurately predict what values will be needed in the future.
-	- disadvantages.
-		- need to maintain consistency between database and caches.
-		- need to add redis or memcached to your application.
+In-memory caches, such as Memcached or Redis, serve as a buffering layer between your application and data storage, helping balance server loads between reads and writes. Caches are extremely fast—Redis can handle hundreds of thousands of read operations per second.
 
-```dataview
-table without id file.inlinks as Backlinks
-where file.name = this.file.name
-```
+Caching can occur on the client-side, within a content delivery network (CDN), or on the server-side. Server-side caching has two primary methods:
+
+- **Caching queries**: Stores query results so repeated queries can be quickly retrieved from the cache. However, if any data in the result changes, the entire query result must be removed from the cache.
+
+- **Caching objects**: Stores objects or classes (similar to object-oriented programming) and can evict items when the object is updated. Commonly cached items include user sessions, fully rendered HTML files, and social network friend relationships.
+
+## cache update policies
+
+### write-through
+
+The application writes and reads all data through the cache, which updates the database synchronously.
+
+- [p] The cache and database are always in sync.
+- [c] Writes are slower.
+
+### write-around
+
+The application directly writes to the database, and the cache is only populated by read requests that cause cache misses.
+
+- [p] Lower write latency.
+- [c] Reads are slower and their are guaranteed cache misses on first read of data.
+
+### write-behind / write-back
+
+Similar to write-through, but the cache updates the database asynchronously via a queue. This can lead to data loss if the cache fails before the database is updated.
+
+![300](https://github.com/donnemartin/system-design-primer/raw/master/images/rgSrvjG.png)
+
+### refresh-ahead
+
+The cache is configured to refresh entries before they expire, which works well if future data needs can be predicted accurately.
+
+---
+
+All of these strategies have the challenge of maintaining consistency between the cache and the database. Additionally, using Redis or Memcached requires extra integration effort within the application.
+
+## cache read strategies
+
+### read-through cache
+
+The cache itself is responsible for grabbing up-to-date data on a cache miss.
+
+### read-aside cache/cache-aside
+
+The application makes a second call to read data from the database on a cache miss, and is responsible for updating the cache afterwards.
 
 ## references
 
 - https://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache
+- https://www.designgurus.io/course-play/grokking-the-system-design-interview/doc/caching

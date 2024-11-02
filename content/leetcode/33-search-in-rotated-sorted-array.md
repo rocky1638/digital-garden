@@ -6,7 +6,7 @@ aliases:
 difficulty: 🟡
 link: https://leetcode.com/problems/search-in-rotated-sorted-array/
 date: 2022-11-21
-updated: 2024-07-31
+updated: 2024-10-23
 tags:
   - binary-search
 ---
@@ -19,7 +19,9 @@ Given the array `nums` **after** the possible rotation and an integer `targe
 
 You must write an algorithm with `O(log n)` runtime complexity.
 
-## solution
+## solutions
+
+### find pivot
 
 First binary search to find the pivot index. Then binary search on the correct side of the pivoted array _(rotated array is essentially two distinct sorted arrays)._
 
@@ -68,4 +70,33 @@ def search(self, nums: List[int], target: int) -> int:
 	if target < nums[0]:
 		return binary_search(nums, pivot, len(nums)-1, target)
 	return binary_search(nums, 0, pivot-1, target)
+```
+
+### binary search on sorted side
+
+```python
+def search(self, nums: List[int], target: int) -> bool:
+	l, r = 0, len(nums)-1
+
+	while l <= r:
+		m = (l+r)//2
+	  
+		if nums[m] == target:
+			return True
+	  
+		# [l:m] is sorted, check it
+		elif nums[l] <= nums[m]:
+			# it's in the left half, remove right half
+			if nums[l] <= target <= nums[m]:
+				r = m-1
+			else: # it's not in left half, look in right half
+				l = m+1
+		# [l:m] is rotated, binary search on [m:r]
+		else:
+			# target is in right half, omit left
+			if nums[m] <= target <= nums[r]:
+				l = m+1
+			else:
+				r = m-1
+	return False
 ```

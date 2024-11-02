@@ -1,10 +1,42 @@
 ---
 type: system-design-example
+title: web crawler
 parents:
   - "[[system-design]]"
+date: 2022-12-08
+updated: 2024-10-09
 ---
 
-# web crawler
+Generally, we’ll need to partition our URLs because there’s way too many URLs not to. A lot of this problem is figuring out how to do this efficiently in the constraints of the operations we need to perform (fetching, deduplicating, graph traversal).
+
+### general partitioning
+
+- We want to partition by `hostname` . This will allow us to colocate frontiers, caching, and mirrors the general structure of web links, where a lot of links point back onto the same host.
+
+### deduplicating fetching
+
+1. Store visited URLs in a global shared cache that’s replicated for durability.
+
+(+) Simple, don’t need to worry about consistency.
+(-) Requests might be slow if they are coming from multiple datacenters.
+
+2. Store them in local caches (per partition), and synchronize them asynchronously using version vectors. Conflicts can be resolved to just always take any partition as the source of truth when they say that a URL/webpage has been traversed/processed.
+
+### efficient dns/`robots.txt`  lookups
+
+- We probably want to cache DNS lookups, especially if we’re gonna be making a ton of requests to one host (i.e. Wikipedia).
+- We don’t want to cache every DNS resolution on every partition. If we partition URLs by hostname, we can only cache, say `wikipedia.com`  on the partition that’s handling Wikipedia.
+- We can do similar partition/caching strategy for `robots.txt`  policies!
+
+### politeness/cooldown
+
+- Need to keep a datastore that stores when the last time we crawled a host was.
+
+- We shouldn’t wait in a blocking fashion, but we should put it back in the queue with a timeout (SQS has visibility timeouts).
+
+[https://www.youtube.com/watch?v=MdWvMX4J-Vc](https://www.youtube.com/watch?v=MdWvMX4J-Vc)
+
+## archive
 
 - typical usecases.
 	- search engine indexing.
